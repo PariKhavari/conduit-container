@@ -100,6 +100,9 @@ DATABASES = {
         'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
         'HOST': os.environ.get('POSTGRES_HOST', 'database'),
         'PORT': os.environ.get('POSTGRES_PORT', '5432'),
+        'OPTIONS': {
+            'options': '-c timezone=UTC'
+        },
     }
 }
 
@@ -163,4 +166,25 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 20,
+}
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'WARNING',
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+    },
 }
